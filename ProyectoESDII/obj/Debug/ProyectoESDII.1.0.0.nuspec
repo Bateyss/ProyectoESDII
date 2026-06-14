@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>ProyectoESDII</id>
+    <version>1.0.0</version>
+    <authors>ProyectoESDII</authors>
+    <description>Package Description</description>
+    <repository type="git" commit="52d0d8ddf80e2e18bd8e5cd9b1a192ce4e92f2a0" />
+    <dependencies>
+      <group targetFramework="net10.0-windows7.0">
+        <dependency id="LiteDB" version="5.0.21" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.Data.Sqlite.Core" version="10.0.9" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+    <frameworkReferences>
+      <group targetFramework="net10.0-windows7.0">
+        <frameworkReference name="Microsoft.WindowsDesktop.App.WindowsForms" />
+      </group>
+    </frameworkReferences>
+  </metadata>
+  <files>
+    <file src="C:\Users\Laptop\source\repos\ProyectoESDII\ProyectoESDII\bin\Debug\net10.0-windows\ProyectoESDII.runtimeconfig.json" target="lib\net10.0-windows7.0\ProyectoESDII.runtimeconfig.json" />
+    <file src="C:\Users\Laptop\source\repos\ProyectoESDII\ProyectoESDII\bin\Debug\net10.0-windows\ProyectoESDII.dll" target="lib\net10.0-windows7.0\ProyectoESDII.dll" />
+  </files>
+</package>
