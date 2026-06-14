@@ -204,7 +204,7 @@ namespace ProyectoESDII.utils.AVL
         }
 
         //Método para mostrar todos los productos en AVL tree
-        public void mostrarProductos()
+        public void MostrarProductos()
         {
             Console.Clear();
             Console.WriteLine();
@@ -252,7 +252,7 @@ namespace ProyectoESDII.utils.AVL
             return nodo;
         }
 
-        public string getRecorrido()
+        public string GetRecorrido()
         {
             return recorrido.ToString();
         }

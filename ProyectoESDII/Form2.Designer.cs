@@ -35,7 +35,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(31, 165);
+            label1.Location = new Point(31, 23);
             label1.Name = "label1";
             label1.Size = new Size(66, 17);
             label1.TabIndex = 1;
@@ -43,16 +43,16 @@
             // 
             // treeView1
             // 
-            treeView1.Location = new Point(31, 209);
+            treeView1.Location = new Point(31, 61);
             treeView1.Name = "treeView1";
-            treeView1.Size = new Size(631, 569);
+            treeView1.Size = new Size(631, 450);
             treeView1.TabIndex = 2;
             // 
             // Form2
             // 
             AutoScaleDimensions = new SizeF(7F, 17F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(700, 807);
+            ClientSize = new Size(700, 541);
             Controls.Add(treeView1);
             Controls.Add(label1);
             Name = "Form2";

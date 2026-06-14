@@ -16,17 +16,8 @@ namespace ProyectoESDII.utils.ABPlus
             EsHoja = esHoja;
             Claves = new List<string>();
             Siguiente = null;
-
-            if (esHoja)
-            {
-                Valores = new List<Producto>();
-                Hijos = null;
-            }
-            else
-            {
-                Valores = null;
-                Hijos = new List<ABPlusNode>();
-            }
+            Valores = new List<Producto>();
+            Hijos = new List<ABPlusNode>();
         }
 
     }

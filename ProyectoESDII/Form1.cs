@@ -128,5 +128,18 @@ namespace ProyectoESDII
             }
             else MessageBox.Show("No hay datos que mostrar");
         }
+
+        private void btnMostrarHash_Click(object sender, EventArgs e)
+        {
+            service.MostrarHashTable(dgvProductos);
+        }
+
+        private void btnMostrar_Click(object sender, EventArgs e)
+        {
+            dgvProductos.Rows.Clear();
+            dgvProductos.Columns.Clear();
+            CargarProductos(null);
+            MostrarProductos();
+        }
     }
 }

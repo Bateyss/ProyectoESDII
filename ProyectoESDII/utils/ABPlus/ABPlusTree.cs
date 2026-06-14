@@ -7,7 +7,7 @@ namespace ProyectoESDII.utils.ABPlus
     internal class ABPlusTree
     {
         private ABPlusNode raiz;
-        private const int MAX_KEYS = 5;
+        private const int MAX_KEYS = 6;
         private StringBuilder recorrido;
 
         public ABPlusTree()
@@ -36,7 +36,10 @@ namespace ProyectoESDII.utils.ABPlus
             while (!actual.EsHoja)
             {
                 int i = 0;
-                while (i < actual.Claves.Count && string.Compare(codigo, actual.Claves[i]) >= 0) i++;
+                while (i < actual.Claves.Count && string.Compare(codigo, actual.Claves[i]) >= 0) {
+                    recorrido.Append(" -> ");
+                    recorrido.Append(actual.Claves[i]);
+                    i++; }
                 actual = actual.Hijos[i];
 
                 recorrido.Append(" -> ");
@@ -94,10 +97,8 @@ namespace ProyectoESDII.utils.ABPlus
 
         public void Insertar(Producto producto)
         {
-
             // recursividad
             var resultadoInsertar = InsertarRecursivo(raiz, producto);
-
             if (resultadoInsertar.HasValue)
             {
                 var nuevaRaiz = new ABPlusNode(false);
@@ -106,29 +107,6 @@ namespace ProyectoESDII.utils.ABPlus
                 nuevaRaiz.Hijos.Add(resultadoInsertar.Value.Der);
                 raiz = nuevaRaiz;
             }
-
-
-            // asd
-
-            ABPlusNode actual = raiz;
-
-            // buscar hoja
-            while (!actual.EsHoja)
-            {
-                int i = 0;
-                while (i < actual.Claves.Count && string.Compare(producto.Codigo, actual.Claves[i]) >= 0) i++;
-                actual = actual.Hijos[i];
-            }
-
-            // insertar en la hoja manteniendo el orden
-            // buscar posicion de insertar
-            int index = 0;
-            while (index < actual.Claves.Count && string.Compare(producto.Codigo, actual.Claves[index]) > 0) index++;
-
-            // insertar en la posicion encontrada
-            actual.Claves.Insert(index, producto.Codigo);
-            actual.Valores.Insert(index, producto);
-
         }
 
         private (string Clave, ABPlusNode Der)? InsertarRecursivo(ABPlusNode nodo, Producto producto)
@@ -140,6 +118,10 @@ namespace ProyectoESDII.utils.ABPlus
                 int i = 0;
                 while (i < nodo.Claves.Count && string.Compare(producto.Codigo, nodo.Claves[i]) > 0) i++;
 
+                if (nodo.Claves.Count > 0 && nodo.Claves.Contains(producto.Codigo))
+                {
+                    return null;
+                }
                 nodo.Claves.Insert(i, producto.Codigo);
                 nodo.Valores.Insert(i, producto);
 
@@ -166,7 +148,7 @@ namespace ProyectoESDII.utils.ABPlus
             return null;
         }
 
-        private (string Clave, ABPlusNode Der) DividirHoja(ABPlusNode hoja)
+        private (string Clave, ABPlusNode Der)? DividirHoja(ABPlusNode hoja)
         {
 
             int count = hoja.Claves.Count;
@@ -189,28 +171,28 @@ namespace ProyectoESDII.utils.ABPlus
             return (nuevoNodo.Claves[0], nuevoNodo);
         }
 
-        private (string Clave, ABPlusNode Der) DividirPadre(ABPlusNode nodo)
+        private (string Clave, ABPlusNode Der)? DividirPadre(ABPlusNode nodo)
         {
 
             int count = nodo.Claves.Count;
             int mitad = count / 2;
             ABPlusNode nuevoNodo = new ABPlusNode(false);
 
+            string clavePromocion = nodo.Claves[mitad];
+
             // mover la mitad derecha
-            for (int i = mitad; i < count; i++)
+            for (int i = mitad + 1; i < count; i++)
             {
-                nuevoNodo.Claves.Add(nodo.Claves[mitad]);
-                nuevoNodo.Hijos.Add(nodo.Hijos[mitad]);
+                nuevoNodo.Claves.Add(nodo.Claves[i]);
+                nuevoNodo.Hijos.Add(nodo.Hijos[i]);
             }
             nuevoNodo.Hijos.Add(nodo.Hijos[nodo.Hijos.Count - 1]);
 
             // ajustar punteros de enlace
-            nodo.Claves.RemoveRange(mitad, nuevoNodo.Claves.Count - mitad);
-            nodo.Hijos.RemoveRange(mitad + 1, nuevoNodo.Claves.Count - (mitad +1));
-            nuevoNodo.Siguiente = nodo.Siguiente;
-            nodo.Siguiente = nuevoNodo;
+            nodo.Claves.RemoveRange(mitad, nodo.Claves.Count - mitad);
+            nodo.Hijos.RemoveRange(mitad+1 , nodo.Hijos.Count - (mitad+1));
 
-            return (nuevoNodo.Claves[0], nuevoNodo);
+            return (clavePromocion, nuevoNodo);
         }
 
 
@@ -254,6 +236,8 @@ namespace ProyectoESDII.utils.ABPlus
 
             ABPlusNode actual = raiz;
 
+            string claves_padre = "[" + string.Join("|", actual.Claves) + "]";
+
             // buscar hoja
             while (!actual.EsHoja)
             {
@@ -262,14 +246,15 @@ namespace ProyectoESDII.utils.ABPlus
 
             if (raiz.Claves.Count > 0)
             {
-                TreeNode nodo = new TreeNode(raiz.Claves[0]);
+
+                TreeNode nodo = new TreeNode(claves_padre);
+                
 
                 while (actual != null)
                 {
-                    foreach (var producto in actual.Valores)
-                    {
-                        nodo.Nodes.Add(producto.Codigo);
-                    }
+                    string claves_hijo = "[" + string.Join("|", actual.Claves) + "]";
+                    TreeNode nodoHijo = new TreeNode(claves_hijo);
+                    nodo.Nodes.Add(nodoHijo);
                     actual = actual.Siguiente;
                 }
 
@@ -279,7 +264,7 @@ namespace ProyectoESDII.utils.ABPlus
             return null;
         }
 
-        public string getRecorrido() { 
+        public string GetRecorrido() { 
         return recorrido.ToString();
         }
 

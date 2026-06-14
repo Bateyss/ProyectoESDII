@@ -43,6 +43,8 @@
             btnBuscarHash = new Button();
             txtRecorrido = new TextBox();
             label4 = new Label();
+            btnMostrarHash = new Button();
+            btnMostrar = new Button();
             ((System.ComponentModel.ISupportInitialize)dgvProductos).BeginInit();
             ((System.ComponentModel.ISupportInitialize)txtAgregarProducto).BeginInit();
             SuspendLayout();
@@ -50,15 +52,15 @@
             // dgvProductos
             // 
             dgvProductos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvProductos.Location = new Point(55, 283);
+            dgvProductos.Location = new Point(55, 303);
             dgvProductos.Name = "dgvProductos";
-            dgvProductos.Size = new Size(834, 295);
+            dgvProductos.Size = new Size(834, 275);
             dgvProductos.TabIndex = 0;
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(56, 241);
+            label1.Location = new Point(56, 264);
             label1.Name = "label1";
             label1.Size = new Size(121, 17);
             label1.TabIndex = 1;
@@ -102,9 +104,9 @@
             // 
             // btnMostrarAB
             // 
-            btnMostrarAB.Location = new Point(761, 51);
+            btnMostrarAB.Location = new Point(730, 92);
             btnMostrarAB.Name = "btnMostrarAB";
-            btnMostrarAB.Size = new Size(128, 30);
+            btnMostrarAB.Size = new Size(159, 30);
             btnMostrarAB.TabIndex = 7;
             btnMostrarAB.Text = "Mostrar Arbol B+";
             btnMostrarAB.UseVisualStyleBackColor = true;
@@ -112,9 +114,9 @@
             // 
             // btnMostrarAVL
             // 
-            btnMostrarAVL.Location = new Point(761, 92);
+            btnMostrarAVL.Location = new Point(730, 137);
             btnMostrarAVL.Name = "btnMostrarAVL";
-            btnMostrarAVL.Size = new Size(128, 30);
+            btnMostrarAVL.Size = new Size(159, 30);
             btnMostrarAVL.TabIndex = 8;
             btnMostrarAVL.Text = "Mostrar Arbol AVL";
             btnMostrarAVL.UseVisualStyleBackColor = true;
@@ -168,26 +170,49 @@
             // 
             // txtRecorrido
             // 
-            txtRecorrido.Location = new Point(296, 188);
+            txtRecorrido.Location = new Point(148, 188);
             txtRecorrido.Multiline = true;
             txtRecorrido.Name = "txtRecorrido";
-            txtRecorrido.Size = new Size(593, 57);
+            txtRecorrido.ScrollBars = ScrollBars.Both;
+            txtRecorrido.Size = new Size(741, 57);
             txtRecorrido.TabIndex = 14;
             // 
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(204, 206);
+            label4.Location = new Point(56, 207);
             label4.Name = "label4";
             label4.Size = new Size(66, 17);
             label4.TabIndex = 15;
             label4.Text = "Recorrido";
+            // 
+            // btnMostrarHash
+            // 
+            btnMostrarHash.Location = new Point(730, 51);
+            btnMostrarHash.Name = "btnMostrarHash";
+            btnMostrarHash.Size = new Size(159, 30);
+            btnMostrarHash.TabIndex = 16;
+            btnMostrarHash.Text = "Mostrar Tabla Hash";
+            btnMostrarHash.UseVisualStyleBackColor = true;
+            btnMostrarHash.Click += btnMostrarHash_Click;
+            // 
+            // btnMostrar
+            // 
+            btnMostrar.Location = new Point(296, 112);
+            btnMostrar.Name = "btnMostrar";
+            btnMostrar.Size = new Size(177, 55);
+            btnMostrar.TabIndex = 17;
+            btnMostrar.Text = "Mostrar Tabla Productos";
+            btnMostrar.UseVisualStyleBackColor = true;
+            btnMostrar.Click += btnMostrar_Click;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 17F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(918, 614);
+            Controls.Add(btnMostrar);
+            Controls.Add(btnMostrarHash);
             Controls.Add(label4);
             Controls.Add(txtRecorrido);
             Controls.Add(btnBuscarHash);
@@ -228,5 +253,7 @@
         private Button btnBuscarHash;
         private TextBox txtRecorrido;
         private Label label4;
+        private Button btnMostrarHash;
+        private Button btnMostrar;
     }
 }

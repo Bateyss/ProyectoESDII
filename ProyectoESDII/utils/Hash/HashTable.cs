@@ -53,6 +53,9 @@ namespace ProyectoESDII.utils.Hash
             //Recorre la lista enlazada en esa posición para encontrar el producto
             while (actual != null)
             {
+                recorrido.Append(" -> ");
+                recorrido.Append(actual.Clave);
+
                 if (actual.Clave == nombre)
                 {
                     recorrido.Append(" -> ");
@@ -61,12 +64,6 @@ namespace ProyectoESDII.utils.Hash
                 }
 
                 actual = actual.Siguiente;
-
-                if (actual != null)
-                {
-                    recorrido.Append(" -> ");
-                    recorrido.Append(actual.Clave);
-                }
             }
 
             return null;
@@ -138,7 +135,7 @@ namespace ProyectoESDII.utils.Hash
         }
 
         //Método para mostrar todos los productos en la tabla hash
-        public void mostrarProductos()
+        public void MostrarProductos()
         {
             Console.Clear();
             Console.WriteLine();
@@ -174,8 +171,40 @@ namespace ProyectoESDII.utils.Hash
             }
         }
 
-        public string getRecorrido() {
+        public string GetRecorrido() {
             return recorrido.ToString();
+        }
+
+        public void MostrarTablaHash(DataGridView gridView) {
+
+            //if (tabla == null || tabla.Length == 0) {
+            //    MessageBox.Show("No hay datos que mostrar");
+            //    return;
+            //}
+
+            gridView.DataSource = null;
+            gridView.Rows.Clear();
+            gridView.Columns.Clear();
+
+            gridView.Columns.Add("Index","Indice");
+            gridView.Columns.Add("Content","Elementos");
+            gridView.Columns.Add("Count","Colisiones");
+
+            gridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+
+            for (int i = 0; i < tabla.Length; i++)
+            {
+                string contenido = "-";
+                int colisiones = 0;
+
+                if (tabla[i] != null)
+                {
+                    contenido = tabla[i].Producto.Nombre;
+                    int rowIndex = gridView.Rows.Add(i, contenido, colisiones);
+                }
+            }
+
+
         }
 
 

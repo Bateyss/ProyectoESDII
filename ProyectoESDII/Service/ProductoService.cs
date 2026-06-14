@@ -111,7 +111,7 @@ namespace ProyectoESDII.Service
             if (prd != null)
             {
                 producto = prd;
-                return (aBPlusTree.getRecorrido(), producto);
+                return (aBPlusTree.GetRecorrido(), producto);
             }
             return null;
         }
@@ -123,7 +123,7 @@ namespace ProyectoESDII.Service
             if (prd != null)
             {
                 producto = prd;
-                return (hashTable.getRecorrido(), producto);
+                return (hashTable.GetRecorrido(), producto);
             }
             return null;
         }
@@ -135,7 +135,7 @@ namespace ProyectoESDII.Service
             if (prd != null)
             {
                 producto = prd;
-                return (aVLTree.getRecorrido(), producto);
+                return (aVLTree.GetRecorrido(), producto);
             }
             return null;
         }
@@ -156,6 +156,15 @@ namespace ProyectoESDII.Service
         public TreeNode? AVLTreeNode()
         {
             return aVLTree.Recorrer();
+        }
+
+        public void MostrarHashTable(DataGridView gridView) {
+            if (hashTable == null)
+            {
+                MessageBox.Show("No hay datos que mostrar");
+                return;
+            }
+            hashTable.MostrarTablaHash(gridView);
         }
     }
 }
