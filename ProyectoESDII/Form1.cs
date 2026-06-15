@@ -141,5 +141,26 @@ namespace ProyectoESDII
             CargarProductos(null);
             MostrarProductos();
         }
+
+        private void btnEliminar_Click(object sender, EventArgs e)
+        {
+            if (dgvProductos.CurrentRow != null)
+            {
+                int rowIndex = dgvProductos.CurrentRow.Index;
+                if (dgvProductos.DataSource != null)
+                {
+                    Producto prod = productosList[rowIndex];
+                    service.eliminar(prod);
+                    CargarProductos(null);
+                    MostrarProductos();
+                }
+                else {
+                    MessageBox.Show("Listado no es de tipo producto");
+                }
+            }
+            else {
+                MessageBox.Show("Seleccione un producto");
+            }
+        }
     }
 }

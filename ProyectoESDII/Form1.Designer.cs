@@ -45,6 +45,7 @@
             label4 = new Label();
             btnMostrarHash = new Button();
             btnMostrar = new Button();
+            btnEliminar = new Button();
             ((System.ComponentModel.ISupportInitialize)dgvProductos).BeginInit();
             ((System.ComponentModel.ISupportInitialize)txtAgregarProducto).BeginInit();
             SuspendLayout();
@@ -60,7 +61,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(56, 264);
+            label1.Location = new Point(56, 270);
             label1.Name = "label1";
             label1.Size = new Size(121, 17);
             label1.TabIndex = 1;
@@ -170,7 +171,7 @@
             // 
             // txtRecorrido
             // 
-            txtRecorrido.Location = new Point(148, 188);
+            txtRecorrido.Location = new Point(148, 183);
             txtRecorrido.Multiline = true;
             txtRecorrido.Name = "txtRecorrido";
             txtRecorrido.ScrollBars = ScrollBars.Both;
@@ -198,19 +199,30 @@
             // 
             // btnMostrar
             // 
-            btnMostrar.Location = new Point(296, 112);
+            btnMostrar.Location = new Point(296, 92);
             btnMostrar.Name = "btnMostrar";
-            btnMostrar.Size = new Size(177, 55);
+            btnMostrar.Size = new Size(177, 53);
             btnMostrar.TabIndex = 17;
             btnMostrar.Text = "Mostrar Tabla Productos";
             btnMostrar.UseVisualStyleBackColor = true;
             btnMostrar.Click += btnMostrar_Click;
+            // 
+            // btnEliminar
+            // 
+            btnEliminar.Location = new Point(202, 267);
+            btnEliminar.Name = "btnEliminar";
+            btnEliminar.Size = new Size(175, 30);
+            btnEliminar.TabIndex = 18;
+            btnEliminar.Text = "Eliminar";
+            btnEliminar.UseVisualStyleBackColor = true;
+            btnEliminar.Click += btnEliminar_Click;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 17F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(918, 614);
+            Controls.Add(btnEliminar);
             Controls.Add(btnMostrar);
             Controls.Add(btnMostrarHash);
             Controls.Add(label4);
@@ -255,5 +267,6 @@
         private Label label4;
         private Button btnMostrarHash;
         private Button btnMostrar;
+        private Button btnEliminar;
     }
 }
