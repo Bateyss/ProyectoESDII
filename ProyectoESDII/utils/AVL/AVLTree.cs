@@ -5,16 +5,29 @@ namespace ProyectoESDII.utils.AVL
 {
     internal class AVLTree
     {
-        //nodo raíz del árbol AVL
+        /// <summary>
+        /// nodo raíz del árbol AVL
+        /// </summary>
         private AVLNode raiz;
+
+        /// <summary>
+        /// texto de recorrido construido al buscar un dato
+        /// </summary>
         private StringBuilder recorrido;
 
+        /// <summary>
+        /// constructor
+        /// </summary>
         public AVLTree()
         {
             recorrido = new StringBuilder("");
         }
 
-        //altura de un nodo
+        /// <summary>
+        /// altura de un nodo
+        /// </summary>
+        /// <param name="nodo"></param>
+        /// <returns></returns>
         private int Altura(AVLNode nodo)
         {
             if (nodo == null)
@@ -23,14 +36,22 @@ namespace ProyectoESDII.utils.AVL
             return nodo.Altura;
         }
 
-        //balance de un nodo
+        /// <summary>
+        /// balance de un nodo
+        /// </summary>
+        /// <param name="nodo"></param>
+        /// <returns>numero de desbalance</returns>
         private int Balance(AVLNode nodo)
         {
             return nodo == null ? 0 :
                 Altura(nodo.Izq) - Altura(nodo.Der);
         }
 
-        //rotacion a la derecha 
+        /// <summary>
+        /// rotacion a la derecha
+        /// </summary>
+        /// <param name="y">nodo</param>
+        /// <returns>nodo rotado</returns>
         private AVLNode RotacionDerecha(AVLNode y)
         {
             AVLNode x = y.Izq;
@@ -47,7 +68,12 @@ namespace ProyectoESDII.utils.AVL
             return x;
         }
 
-        //rotacion a la izquierda
+
+        /// <summary>
+        /// rotacion a la izquierda
+        /// </summary>
+        /// <param name="y">nodo</param>
+        /// <returns>nodo rotado</returns>
         private AVLNode RotacionIzquierda(AVLNode x)
         {
             AVLNode y = x.Der;
@@ -65,7 +91,11 @@ namespace ProyectoESDII.utils.AVL
             return y;
         }
 
-        // Buscar producto por id
+        /// <summary>
+        /// Buscar producto por id
+        /// </summary>
+        /// <param name="existencia"></param>
+        /// <returns>Producto</returns>
         public Producto? Buscar(int existencia)
         {
             AVLNode actual = raiz;
@@ -76,7 +106,8 @@ namespace ProyectoESDII.utils.AVL
             while (actual != null)
             {
                 //// Producto encontrado
-                if (existencia == actual.Producto.Stock) {
+                if (existencia == actual.Producto.Stock)
+                {
                     recorrido.Append(" -> ");
                     recorrido.Append(actual.Producto.ToString());
                     return actual.Producto;
@@ -90,24 +121,33 @@ namespace ProyectoESDII.utils.AVL
                     recorrido.Append(actual.Producto.Stock);
                 }
                 //Buscar derecha
-                else {
+                else
+                {
                     actual = actual.Der;
                     recorrido.Append(" Der-> ");
                     recorrido.Append(actual.Producto.Stock);
                 }
-                    
+
             }
 
             return null;
         }
 
-        // Insertar un producto
+        /// <summary>
+        /// Insertar un producto
+        /// </summary>
+        /// <param name="producto"></param>
         public void Insertar(Producto producto)
         {
             raiz = Insertar(raiz, producto);
         }
 
-        // Método recursivo para insertar
+        /// <summary>
+        /// Método recursivo para insertar
+        /// </summary>
+        /// <param name="nodo"></param>
+        /// <param name="producto"></param>
+        /// <returns>nodo nuevo</returns>
         private AVLNode Insertar(AVLNode nodo, Producto producto)
         {
             // Si el árbol está vacío se crear un nodo
@@ -159,12 +199,21 @@ namespace ProyectoESDII.utils.AVL
             return nodo;
         }
 
-        // Eliminar O(log N)
+        /// <summary>
+        /// Eliminar O(log N)
+        /// </summary>
+        /// <param name="codigo"></param>
         public void Eliminar(int codigo)
         {
             raiz = EliminarRecursivo(raiz, codigo);
         }
 
+        /// <summary>
+        /// Eliminar recursivo para ordenar los datos
+        /// </summary>
+        /// <param name="nodo"></param>
+        /// <param name="Stock"></param>
+        /// <returns></returns>
         private AVLNode EliminarRecursivo(AVLNode nodo, int Stock)
         {
             if (nodo == null) return null;
@@ -191,6 +240,11 @@ namespace ProyectoESDII.utils.AVL
             return nodo;
         }
 
+        /// <summary>
+        /// obtener orden in orden de un nodo
+        /// </summary>
+        /// <param name="nodo"></param>
+        /// <returns>prodcto con id minmo</returns>
         private Producto MinimoValor(AVLNode nodo)
         {
             Producto min = nodo.Producto;
@@ -203,7 +257,9 @@ namespace ProyectoESDII.utils.AVL
             return min;
         }
 
-        //Método para mostrar todos los productos en AVL tree
+        /// <summary>
+        /// Método para mostrar todos los productos en AVL tree
+        /// </summary>
         public void MostrarProductos()
         {
             Console.Clear();
@@ -215,6 +271,10 @@ namespace ProyectoESDII.utils.AVL
             RecorrerInOrder(raiz);
         }
 
+        /// <summary>
+        /// Método para recorrer el nodo InOrder y para imprimir en consola
+        /// </summary>
+        /// <param name="nodo"></param>
         private void RecorrerInOrder(AVLNode nodo)
         {
             if (nodo != null)
@@ -232,12 +292,21 @@ namespace ProyectoESDII.utils.AVL
             }
         }
 
+        /// <summary>
+        /// recorrer el nodo rellenando un TreeNode para imprimir en pantalla
+        /// </summary>
+        /// <returns></returns>
         public TreeNode? Recorrer()
         {
             if (raiz == null) return null;
             return RecorrerRecursivo(raiz);
         }
 
+        /// <summary>
+        /// recorrer InOrden el nodo
+        /// </summary>
+        /// <param name="raix"></param>
+        /// <returns></returns>
         private TreeNode RecorrerRecursivo(AVLNode raix)
         {
             TreeNode nodo = new TreeNode(raix.Producto.Stock.ToString());
@@ -252,6 +321,10 @@ namespace ProyectoESDII.utils.AVL
             return nodo;
         }
 
+        /// <summary>
+        /// obtener el texto almacenado del recorrido al buscar
+        /// </summary>
+        /// <returns>texto del recorrido</returns>
         public string GetRecorrido()
         {
             return recorrido.ToString();

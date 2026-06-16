@@ -1,4 +1,3 @@
-using Microsoft.VisualBasic.Logging;
 using ProyectoESDII.modelos;
 using ProyectoESDII.Service;
 using System.ComponentModel;
@@ -8,9 +7,18 @@ namespace ProyectoESDII
     public partial class Form1 : Form
     {
 
+        /// <summary>
+        /// servicio de productos de base de datos y nodos
+        /// </summary>
         ProductoService service = new ProductoService();
+        /// <summary>
+        /// productos almacenados temporalmente para presentar en pantalla
+        /// </summary>
         List<Producto> productosList = new List<Producto>();
 
+        /// <summary>
+        /// inicializador
+        /// </summary>
         public Form1()
         {
             InitializeComponent();
@@ -19,6 +27,11 @@ namespace ProyectoESDII
             MostrarProductos();
         }
 
+        /// <summary>
+        /// agregar productos
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnAgregarProductos_Click(object sender, EventArgs e)
         {
             int cantidadAgregar = ((int)txtAgregarProducto.Value);
@@ -33,6 +46,11 @@ namespace ProyectoESDII
             }
         }
 
+        /// <summary>
+        /// cargar los productos, para almacenar lo que se podria mostrar en pantalla,
+        /// se puede alojar de filtros
+        /// </summary>
+        /// <param name="productos"></param>
         private void CargarProductos(List<Producto>? productos)
         {
             if (productos != null && productos.Count > 0)
@@ -45,12 +63,20 @@ namespace ProyectoESDII
             }
         }
 
+        /// <summary>
+        /// imprimir productos en pantalla
+        /// </summary>
         public void MostrarProductos()
         {
             var bindingList = new BindingList<Producto>(productosList);
             dgvProductos.DataSource = bindingList;
         }
 
+        /// <summary>
+        /// limpiar productos de la base de datos y nodos
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnLimpiarProductos_Click(object sender, EventArgs e)
         {
             service.LimpiarTodos();
@@ -58,6 +84,11 @@ namespace ProyectoESDII
             MostrarProductos();
         }
 
+        /// <summary>
+        /// mostrar arbol b+
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnMostrarAB_Click(object sender, EventArgs e)
         {
             if (productosList == null)
@@ -74,6 +105,11 @@ namespace ProyectoESDII
             }
         }
 
+        /// <summary>
+        /// mostrar arbol AVL
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnMostrarAVL_Click(object sender, EventArgs e)
         {
             if (productosList == null)
@@ -90,6 +126,11 @@ namespace ProyectoESDII
             }
         }
 
+        /// <summary>
+        /// buscar por codigo en arbol b+
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnBuscarBplus_Click(object sender, EventArgs e)
         {
             txtRecorrido.Text = "";
@@ -101,6 +142,11 @@ namespace ProyectoESDII
             else MessageBox.Show("No hay datos que mostrar");
         }
 
+        /// <summary>
+        /// buscar por existencia en arbol avl
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnBuscarAVL_Click(object sender, EventArgs e)
         {
             txtRecorrido.Text = "";
@@ -118,6 +164,11 @@ namespace ProyectoESDII
             }
         }
 
+        /// <summary>
+        /// buscar por nombre de producto en tabla hash
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnBuscarHash_Click(object sender, EventArgs e)
         {
             txtRecorrido.Text = "";
@@ -129,11 +180,21 @@ namespace ProyectoESDII
             else MessageBox.Show("No hay datos que mostrar");
         }
 
+        /// <summary>
+        /// mostrar tabla hash
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnMostrarHash_Click(object sender, EventArgs e)
         {
             service.MostrarHashTable(dgvProductos);
         }
 
+        /// <summary>
+        /// mostrar productos en pantalla
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnMostrar_Click(object sender, EventArgs e)
         {
             dgvProductos.Rows.Clear();
@@ -142,6 +203,11 @@ namespace ProyectoESDII
             MostrarProductos();
         }
 
+        /// <summary>
+        /// eliminar un producto seleccionado de la tabla en pantalla
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnEliminar_Click(object sender, EventArgs e)
         {
             if (dgvProductos.CurrentRow != null)
@@ -154,11 +220,13 @@ namespace ProyectoESDII
                     CargarProductos(null);
                     MostrarProductos();
                 }
-                else {
+                else
+                {
                     MessageBox.Show("Listado no es de tipo producto");
                 }
             }
-            else {
+            else
+            {
                 MessageBox.Show("Seleccione un producto");
             }
         }

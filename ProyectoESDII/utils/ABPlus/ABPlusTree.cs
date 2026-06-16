@@ -1,13 +1,18 @@
-﻿using Microsoft.VisualBasic.Logging;
-using ProyectoESDII.modelos;
+﻿using ProyectoESDII.modelos;
 using System.Text;
 
 namespace ProyectoESDII.utils.ABPlus
 {
     internal class ABPlusTree
     {
+        // atributos
+        // nodo raiz a partir de donde se almacenaran los demas
         private ABPlusNode raiz;
+
+        // se configura que los nodos B+ deberian ser de maximo 6 datos
         private const int MAX_KEYS = 6;
+
+        // texto que se almacena y construye al realizar una busqueda
         private StringBuilder recorrido;
 
         public ABPlusTree()
@@ -16,14 +21,15 @@ namespace ProyectoESDII.utils.ABPlus
             recorrido = new StringBuilder("");
         }
 
-        // BUSCAR
+        /// <summary>
+        /// metodo que busca un dato en el arbol
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <returns>el producto encontrado</returns>
         public Producto? Buscar(string codigo)
         {
-            //Log log = new Log();
-            
-            ABPlusNode actual = raiz;
 
-            //log.WriteEntry("buscando " + codigo);
+            ABPlusNode actual = raiz;
 
             recorrido = new StringBuilder("");
             foreach (var item in actual.Claves)
@@ -36,10 +42,12 @@ namespace ProyectoESDII.utils.ABPlus
             while (!actual.EsHoja)
             {
                 int i = 0;
-                while (i < actual.Claves.Count && string.Compare(codigo, actual.Claves[i]) >= 0) {
+                while (i < actual.Claves.Count && string.Compare(codigo, actual.Claves[i]) >= 0)
+                {
                     recorrido.Append(" -> ");
                     recorrido.Append(actual.Claves[i]);
-                    i++; }
+                    i++;
+                }
                 actual = actual.Hijos[i];
 
                 recorrido.Append(" -> ");
@@ -55,18 +63,25 @@ namespace ProyectoESDII.utils.ABPlus
             {
                 //log.WriteEntry("clave " + actual.Claves[i]);
                 //log.WriteEntry("codigo " + codigo);
-                if (string.Compare(codigo, actual.Claves[i]) == 0) {
+                if (string.Compare(codigo, actual.Claves[i]) == 0)
+                {
                     recorrido.Append(" -> ");
                     recorrido.Append(actual.Claves[i]);
 
                     recorrido.Append(" -> ");
                     recorrido.Append(actual.Valores[i].ToString());
-                    return actual.Valores[i]; }
+                    return actual.Valores[i];
+                }
             }
 
             return null;
         }
 
+        /// <summary>
+        /// Eliminar un dato
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <returns>True si es eliminado</returns>
         public bool Eliminar(string codigo)
         {
             ABPlusNode actual = raiz;
@@ -94,7 +109,10 @@ namespace ProyectoESDII.utils.ABPlus
             return false;
         }
 
-
+        /// <summary>
+        /// Insertar un dato
+        /// </summary>
+        /// <param name="producto"></param>
         public void Insertar(Producto producto)
         {
             // recursividad
@@ -109,6 +127,12 @@ namespace ProyectoESDII.utils.ABPlus
             }
         }
 
+        /// <summary>
+        /// metodo privado recursivo para insertar y ordenar el dato
+        /// </summary>
+        /// <param name="nodo"></param>
+        /// <param name="producto"></param>
+        /// <returns>Clave y Nodo derecho</returns>
         private (string Clave, ABPlusNode Der)? InsertarRecursivo(ABPlusNode nodo, Producto producto)
         {
             if (nodo.EsHoja)
@@ -148,6 +172,11 @@ namespace ProyectoESDII.utils.ABPlus
             return null;
         }
 
+        /// <summary>
+        /// metodo que divide y ordena las hojas cuando sobrepasan el maximo de datos de nodo
+        /// </summary>
+        /// <param name="hoja"></param>
+        /// <returns>Clave y Nodo derecho</returns>
         private (string Clave, ABPlusNode Der)? DividirHoja(ABPlusNode hoja)
         {
 
@@ -171,6 +200,11 @@ namespace ProyectoESDII.utils.ABPlus
             return (nuevoNodo.Claves[0], nuevoNodo);
         }
 
+        /// <summary>
+        /// metodo que divide el nodo padre, cuando se agrega una nueva hoja y se sobrepasa el tamanio del nodo padre maximo
+        /// </summary>
+        /// <param name="nodo"></param>
+        /// <returns>Clave y Nodo derecho</returns>
         private (string Clave, ABPlusNode Der)? DividirPadre(ABPlusNode nodo)
         {
 
@@ -190,14 +224,15 @@ namespace ProyectoESDII.utils.ABPlus
 
             // ajustar punteros de enlace
             nodo.Claves.RemoveRange(mitad, nodo.Claves.Count - mitad);
-            nodo.Hijos.RemoveRange(mitad+1 , nodo.Hijos.Count - (mitad+1));
+            nodo.Hijos.RemoveRange(mitad + 1, nodo.Hijos.Count - (mitad + 1));
 
             return (clavePromocion, nuevoNodo);
         }
 
 
-        //Método para mostrar todos los productos en B+ tree
-        // recorrer
+        /// <summary>
+        /// Método para mostrar todos los productos en B+ tree
+        /// </summary>
         private void MostrarProductos()
         {
             ABPlusNode actual = raiz;
@@ -229,7 +264,10 @@ namespace ProyectoESDII.utils.ABPlus
             }
         }
 
-        // recorrer
+        /// <summary>
+        /// Método para mostrar todos los productos en B+ tree
+        /// </summary>
+        /// <returns>TreeNode para cargarlo en pantalla</returns>
         public TreeNode? Recorrer()
         {
             if (raiz == null) return null;
@@ -248,7 +286,7 @@ namespace ProyectoESDII.utils.ABPlus
             {
 
                 TreeNode nodo = new TreeNode(claves_padre);
-                
+
 
                 while (actual != null)
                 {
@@ -264,8 +302,13 @@ namespace ProyectoESDII.utils.ABPlus
             return null;
         }
 
-        public string GetRecorrido() { 
-        return recorrido.ToString();
+        /// <summary>
+        /// obtener recorrido almacenado como texto
+        /// </summary>
+        /// <returns>texto del recorrido</returns>
+        public string GetRecorrido()
+        {
+            return recorrido.ToString();
         }
 
     }

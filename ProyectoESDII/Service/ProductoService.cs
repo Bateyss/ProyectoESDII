@@ -10,12 +10,30 @@ namespace ProyectoESDII.Service
     internal class ProductoService
     {
 
+        /// <summary>
+        /// repositorio de base de datos
+        /// </summary>
         ProductoRepo repo = new ProductoRepo();
+
+        /// <summary>
+        /// objeto para crear numero y texto random.
+        /// se usara para generar productos
+        /// </summary>
         Random random = new Random();
         string caracteresRandom = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
+        /// <summary>
+        /// arbol B+
+        /// </summary>
         ABPlusTree aBPlusTree = new ABPlusTree();
+        /// <summary>
+        /// arbol AVL
+        /// </summary>
         AVLTree aVLTree = new AVLTree();
+
+        /// <summary>
+        /// tabla hash
+        /// </summary>
         HashTable hashTable;
 
         public ProductoService()
@@ -23,12 +41,22 @@ namespace ProyectoESDII.Service
             ComprobarStructuras();
         }
 
+        /// <summary>
+        /// obtener productos almacenados en la base de datos
+        /// </summary>
+        /// <returns></returns>
         public List<Producto> ObtenerProductos()
         {
             List<Producto> productos = repo.List();
             return productos;
         }
 
+        /// <summary>
+        /// genera prpductos con textos y numeros random,
+        /// la cantidad depende de cuantas se solicite en pantalla
+        /// </summary>
+        /// <param name="cantidad"></param>
+        /// <returns>listado de productos generados</returns>
         public List<Producto> GenerarProductos(int cantidad)
         {
             if (hashTable == null) hashTable = new HashTable(cantidad);
@@ -50,6 +78,12 @@ namespace ProyectoESDII.Service
             return productos;
         }
 
+        /// <summary>
+        /// metodo que genera un texto con un pefix y segun la cantidad de caracteres solicitados
+        /// </summary>
+        /// <param name="prefix"></param>
+        /// <param name="cantidad"></param>
+        /// <returns>el texto</returns>
         private string TextoRandom(string prefix, int cantidad)
         {
             StringBuilder texto = new StringBuilder(prefix);
@@ -61,6 +95,9 @@ namespace ProyectoESDII.Service
             return texto.ToString();
         }
 
+        /// <summary>
+        /// metodo que borra todos los produtos de la base de datos y reinicia los nodos
+        /// </summary>
         public void LimpiarTodos()
         {
             repo.Limpiar();
@@ -69,6 +106,11 @@ namespace ProyectoESDII.Service
             hashTable = null;
         }
 
+        /// <summary>
+        ///  metodo que inserta en la base de datos y nodos
+        /// </summary>
+        /// <param name="producto"></param>
+        /// <returns></returns>
         public Producto Insertar(Producto producto)
         {
             producto = repo.Guardar(producto);
@@ -78,6 +120,9 @@ namespace ProyectoESDII.Service
             return producto;
         }
 
+        /// <summary>
+        /// metodo que comprueba y actualiza estructuras
+        /// </summary>
         private void ComprobarStructuras()
         {
             if (hashTable == null)
@@ -86,6 +131,9 @@ namespace ProyectoESDII.Service
             }
         }
 
+        /// <summary>
+        /// metodo que actualiza estructiras de forma en segundo plano
+        /// </summary>
         public async void ActualizarEstructuras()
         {
             List<Producto> productos = this.ObtenerProductos();
@@ -104,6 +152,11 @@ namespace ProyectoESDII.Service
 
         }
 
+        /// <summary>
+        /// busca productos por codigo en arbol b+
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <returns>producto</returns>
         public (string recorrido, Producto producto)? buscarCodigo(string codigo)
         {
             Producto producto = new Producto();
@@ -116,6 +169,11 @@ namespace ProyectoESDII.Service
             return null;
         }
 
+        /// <summary>
+        /// buscar productos por nombre en tabla HASH
+        /// </summary>
+        /// <param name="nombre"></param>
+        /// <returns>producto</returns>
         public (string recorrido, Producto producto)? buscarNombre(string nombre)
         {
             Producto producto = new Producto();
@@ -128,6 +186,11 @@ namespace ProyectoESDII.Service
             return null;
         }
 
+        /// <summary>
+        /// busca productos por existencia en arbol AVL
+        /// </summary>
+        /// <param name="stock"></param>
+        /// <returns>producto</returns>
         public (string recorrido, Producto producto)? buscarExistencia(int stock)
         {
             Producto producto = new Producto();
@@ -140,6 +203,10 @@ namespace ProyectoESDII.Service
             return null;
         }
 
+        /// <summary>
+        /// metodo para eliminar un producto y eliminarlo de los nodos
+        /// </summary>
+        /// <param name="producto"></param>
         public async void eliminar(Producto producto)
         {
             repo.Eliminar(producto);
@@ -148,17 +215,30 @@ namespace ProyectoESDII.Service
             aVLTree.Eliminar(producto.Stock);
         }
 
+        /// <summary>
+        /// obtener recorrido en TreeNode de arbol b+
+        /// </summary>
+        /// <returns></returns>
         public TreeNode? ABPlusTreeNode()
         {
             return aBPlusTree.Recorrer();
         }
 
+        /// <summary>
+        /// obtener recorrido en TreeNode de arbol AVL
+        /// </summary>
+        /// <returns></returns>
         public TreeNode? AVLTreeNode()
         {
             return aVLTree.Recorrer();
         }
 
-        public void MostrarHashTable(DataGridView gridView) {
+        /// <summary>
+        /// obtener recorrido y mostrarlo en un grid view en pantalla
+        /// </summary>
+        /// <param name="gridView"></param>
+        public void MostrarHashTable(DataGridView gridView)
+        {
             if (hashTable == null)
             {
                 MessageBox.Show("No hay datos que mostrar");

@@ -1,20 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
-using System.Windows.Forms;
-
-namespace ProyectoESDII
+﻿namespace ProyectoESDII
 {
     public partial class Form2 : Form
     {
+        /// <summary>
+        /// constructor con datos vacios
+        /// </summary>
         public Form2()
         {
             InitializeComponent();
         }
 
+        /// <summary>
+        /// constructor con datos a imprimir
+        /// </summary>
+        /// <param name="label"></param>
+        /// <param name="nodo"></param>
         public Form2(string label, TreeNode nodo)
         {
             InitializeComponent();
@@ -24,6 +24,10 @@ namespace ProyectoESDII
             this.Text = label;
         }
 
+        /// <summary>
+        /// imprimiar arbol en pantalla
+        /// </summary>
+        /// <param name="nodo"></param>
         private void dibujarArbol(TreeNode nodo)
         {
             // limpiar cuadro en pantalla

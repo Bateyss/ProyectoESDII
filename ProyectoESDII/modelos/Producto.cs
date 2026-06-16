@@ -10,7 +10,14 @@
         public double Precio { get; set; }
         public int Stock { get; set; }
 
-        //Constructor
+        /// <summary>
+        /// Constructor de datos llenos
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <param name="nombre"></param>
+        /// <param name="categoria"></param>
+        /// <param name="precio"></param>
+        /// <param name="stock"></param>
         public Producto(string codigo, string nombre, string categoria, double precio, int stock)
         {
             Codigo = codigo;
@@ -20,6 +27,9 @@
             Stock = stock;
         }
 
+        /// <summary>
+        /// constructor de datos vacios
+        /// </summary>
         public Producto()
         {
             Codigo = "";
@@ -29,7 +39,10 @@
             Stock = 0;
         }
 
-        //Sobreescritura de ToString 
+        /// <summary>
+        /// Sobreescritura de ToString
+        /// </summary>
+        /// <returns></returns>
         public override string ToString()
         {
             return $"Código: {Codigo}, Nombre: {Nombre}, Categoría: {Categoria}, Precio: {Precio}, Stock: {Stock}";

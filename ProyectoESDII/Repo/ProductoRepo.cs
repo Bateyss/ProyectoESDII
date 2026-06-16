@@ -5,9 +5,15 @@ namespace ProyectoESDII.Repo
 {
     internal class ProductoRepo
     {
-
+        /// <summary>
+        /// nombre de la tabla en el repo
+        /// </summary>
         public static string REPO_ID = "PRODUCTOS";
 
+        /// <summary>
+        /// obtener productos de la base de datos
+        /// </summary>
+        /// <returns></returns>
         public List<Producto> List()
         {
             using (var db = LiteDbContext.ObtenerBaseDeDatos())
@@ -19,6 +25,11 @@ namespace ProyectoESDII.Repo
             }
         }
 
+        /// <summary>
+        /// guardar producto en la base de datos
+        /// </summary>
+        /// <param name="producto"></param>
+        /// <returns></returns>
         public Producto Guardar(Producto producto)
         {
             using (var db = LiteDbContext.ObtenerBaseDeDatos())
@@ -29,6 +40,11 @@ namespace ProyectoESDII.Repo
             }
         }
 
+        /// <summary>
+        /// buscar productos de la base de datos por id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public Producto FindById(int id)
         {
             using (var db = LiteDbContext.ObtenerBaseDeDatos())
@@ -40,6 +56,11 @@ namespace ProyectoESDII.Repo
             }
         }
 
+        /// <summary>
+        /// buscar productos de la base de datos por codigo
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <returns></returns>
         public Producto FindByCodigo(string codigo)
         {
             using (var db = LiteDbContext.ObtenerBaseDeDatos())
@@ -51,7 +72,11 @@ namespace ProyectoESDII.Repo
             }
         }
 
-        public void Limpiar() {
+        /// <summary>
+        /// limpiar base de datos de productos
+        /// </summary>
+        public void Limpiar()
+        {
             using (var db = LiteDbContext.ObtenerBaseDeDatos())
             {
                 var coleccion = db.GetCollection<Producto>(REPO_ID);
@@ -61,6 +86,10 @@ namespace ProyectoESDII.Repo
             }
         }
 
+        /// <summary>
+        /// eliminar un producto en la base de datos
+        /// </summary>
+        /// <param name="producto"></param>
         public void Eliminar(Producto producto)
         {
             using (var db = LiteDbContext.ObtenerBaseDeDatos())

@@ -11,6 +11,10 @@ namespace ProyectoESDII.utils.ABPlus
         public List<Producto> Valores { get; set; }
         public ABPlusNode Siguiente { get; set; }
 
+        /// <summary>
+        /// constructor que requiere el dato de si el nuevo nodo es hoja o nodo interno
+        /// </summary>
+        /// <param name="esHoja"></param>
         public ABPlusNode(bool esHoja)
         {
             EsHoja = esHoja;

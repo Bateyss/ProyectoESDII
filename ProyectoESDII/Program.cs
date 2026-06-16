@@ -1,5 +1,3 @@
-using ProyectoESDII.utils.DBLite;
-
 namespace ProyectoESDII
 {
     internal static class Program

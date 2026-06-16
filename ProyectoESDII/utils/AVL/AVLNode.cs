@@ -4,17 +4,24 @@ namespace ProyectoESDII.utils.AVL
 {
     internal class AVLNode
     {
-        // Producto almacenado en el nodo
+        /// <summary>
+        /// Producto almacenado en el nodo
+        /// </summary>
         public Producto Producto;
 
-        // Referencias a los nodos hijos izquierdo y derecho
+        /// <summary>
+        /// Referencias a los nodos hijos izquierdo y derecho
+        /// </summary>
         public AVLNode Izq;
         public AVLNode Der;
 
-        //altura del nodo 
+        ///altura del nodo 
         public int Altura;
 
-        //constructor
+        /// <summary>
+        /// constructor
+        /// </summary>
+        /// <param name="producto"></param>
         public AVLNode(Producto producto)
         {
             Producto = producto;
